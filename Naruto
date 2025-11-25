@@ -1,0 +1,494 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class naruto {
+
+    public static void main(String[] args) {
+
+        // Variables de jugador
+
+        Random random = new Random(); // Para generar ataques aleatorios
+
+        // Ataques del jugador según personaje elegido (Naruto, Sasuke, Sakura)
+        int[] ataque1Personaje = { 15, 12, 10 };
+        int[] ataque2Personaje = { 7, 6, 5 };
+        int defensaPersonaje = 5; // Defensa base del jugador
+
+        // Objetos del jugador (tres objetos por personaje)
+        int[] obj1Personaje = { 3, 3, 2 };
+        int[] obj2Personaje = { 5, 5, 4 };
+        int[] obj3Personaje = { 1, 1, 1 };
+
+        // Nombres de ataques, defensa y objetos según personaje elegido
+        String[][] nombresAtaques = {
+                { "Rasengan", "Clones de sombra" },
+                { "Chidori", "Bola de fuego" },
+                { "Golpe de Chakra", "" }
+        };
+
+        String[] nombresDefensa = { "Modo Sabio", "Sharingan", "Regeneración" };
+
+        String[][] nombresObjetos = {
+                { "Shuriken Demoniaco", "Ramen", "Píldora verde" },
+                { "Espada Kusanagi", "Mordida de Karin", "Píldora roja" },
+                { "Pergamino de armas", "Venda médica", "Píldora amarilla" }
+        };
+
+        // Variables del enemigo
+
+        String[] nombresEnemigos = { "Kaguya", "Zabuza", "Itachi", "Orochimaru", "Madara" };
+
+        // Sus ataques y defensas
+        int[] ataque1Enemigo = { 20, 10, 15, 12, 18 };
+        int[] ataque2Enemigo = { 10, 5, 7, 6, 9 };
+        int[] defensaEnemigo = { 4, 1, 1, 3, 4 };
+
+        // Sus objetos
+        int[] obj1Enemigo = { 2, 2, 2, 2, 3 };
+        int[] obj2Enemigo = { 3, 2, 2, 2, 3 };
+        int[] obj3Enemigo = { 1, 0, 1, 1, 1 };
+
+        // Nombres de ataques, defensas y objetos de enemigos
+        String[][] nombresAtaquesEn = {
+                { "Ceniza expansiva", "Manipulación dimensional" },
+                { "Decapitación Silenciosa", "Técnica de la niebla" },
+                { "Amaterasu", "Tsukuyomi" },
+                { "Lanzas de serpiente", "Cuerpo de serpiente" },
+                { "Susanoo completo", "Meteoro" }
+        };
+
+        String[] nombresDefensaEn = {
+                "Regeneración + Byakugan",
+                "Resistencia física",
+                "Susanoo",
+                "Regeneración + muda de piel",
+                "Susanoo + cuerpo reanimado"
+        };
+
+        String[][] nombresObjetosEn = {
+                { "Chakra de Ōtsutsuki", "Dimensión propia", "Portal dimensional" },
+                { "Kubikiribōchō", "Hilo oculto", "Amuleto estándar" },
+                { "Shuriken Uchiha", "Pergamino explosivo", "Espejo Yata" },
+                { "Kusanagi", "Poción experimental", "Sellos prohibidos" },
+                { "Rinnegan", "Sharingan eterno", "Células Hashirama" }
+        };
+
+        // Variables del combate
+
+        int vidaJugador = 100;
+        int vidaEnemigo = 100;
+
+        // Contadores de usos para cada tipo de ataque/defensa
+        int usosAtaque1Personaje = 3;
+        int usosAtaque2Personaje = 3;
+        int usosDefensaPersonaje = 3;
+
+        int usosAtaque1Enemigo = 3;
+        int usosAtaque2Enemigo = 3;
+        int usosDefensaEnemigo = 3;
+
+        boolean jugadorDefiende = false;
+        boolean enemigoDefiende = false;
+
+   
+        // Llogin del jugador
+
+        Scanner sc = new Scanner(System.in);
+        String usuario, contraseña;
+        int personajes = 0;
+
+        // Repetir hasta que usuario y contraseña sean correctos
+        do {
+            System.out.println("\nIntroduce tu usuario: ");
+            usuario = sc.nextLine();
+
+            System.out.println("\nIntroduce tu contraseña: ");
+            contraseña = sc.nextLine();
+
+            if (!usuario.equalsIgnoreCase("Hokage") || !contraseña.equalsIgnoreCase("Ninja")) {
+                System.out.println("\n---> Contraseña o usuario erróneo. Prueba de nuevo <---");
+            }
+
+        } while (!usuario.equalsIgnoreCase("Hokage") || !contraseña.equalsIgnoreCase("Ninja"));
+
+        // Elección del personaje
+
+        System.out.println("\nElige entre los siguientes personajes:");
+
+        do {
+            System.out.println("\n--> Personajes:");
+            System.out.println(
+                    "\n===> 1. Naruto <===\nAtaque - Rasengan\nDefensa - Modo Sabio\nObjetos - Pergaminos Ninja");
+            System.out.println(
+                    "\n===> 2. Sasuke <===\nAtaque - Chidori\nDefensa - Sharingan\nObjetos - Shuriken Demoníaco");
+            System.out.println(
+                    "\n===> 3. Sakura <===\nAtaque - Golpe de Chakra\nDefensa - Regeneración Celular\nObjetos - Guantes de combate");
+
+            if (sc.hasNextInt()) {
+                personajes = sc.nextInt();
+
+            //Frase de cada personaje
+                switch (personajes) {
+                    case 1:
+                        System.out.println("\n¡Me convertiré en el Hokage Dattebayo!");
+                        break;
+
+                    case 2:
+                        System.out.println("\nDebo volverme más fuerte...");
+                        break;
+
+                    case 3:
+                        System.out.println("\n¡NARUTOOOOOOO!");
+                        break;
+
+                    default:
+                        System.out.println("Por favor, introduce un número del 1 al 3");
+                }
+            } else {
+                System.out.println("Por favor introduce un número válido.");
+                sc.next();
+            }
+
+        } while (personajes < 1 || personajes > 3);
+
+        // Zona de juego
+        boolean juegoActivo = true;
+
+        // Mientras el jugador no muera y quiera seguir jugando
+        while (juegoActivo && vidaJugador > 0) {
+
+            System.out.println("\nElige un camino:");
+            System.out.println(
+                    "1. Bosque de la Muerte\n2. Refugio Uchiha\n3. Dimensión de Kaguya\n4. Valle del Fin");
+
+            int camino = sc.nextInt();
+            boolean superaPrueba = false;
+
+            if (camino == 0) {
+                juegoActivo = false;
+                continue;
+            }
+
+            int intentos;
+            int respuesta;
+
+            // Prueba segun el camino elegido
+
+            switch (camino) {
+
+                // Prueba 1: Tiro de precición
+
+                case 1:
+                    intentos = 0;
+
+                    // Tres intentos para acertar entre 45 y 55
+                    while (intentos < 3 && !superaPrueba) {
+                        System.out.print("Lanza la pelota (0-100): ");
+                        int resp = sc.nextInt();
+                        intentos++;
+
+                        if (resp >= 45 && resp <= 55) {
+                            System.out.println("¡Acertaste!");
+                            superaPrueba = true;
+                        } else if (resp < 45)
+                            System.out.println("Te quedaste corto");
+                        else
+                            System.out.println("Te pasaste");
+                    }
+                    break;
+
+                // Preuba 2: Pregunta refran
+
+                case 2:
+                    System.out.println(
+                            "En esta prueba deberas saber cual es uno de los refranes más populares del mundo ninja");
+                    System.out.println("Escoge bien, pues sólo tendras dos intentos");
+                    System.out.println("========================================================");
+                    System.out.println("Cuando el Grajo vuela bajo...");
+                    System.out.println("1. sale malo hasta el ajo");
+                    System.out.println("2. hace un frio del carajo");
+                    System.out.println("3. sólo caza al escarabajo");
+
+                    intentos = 0;
+                    respuesta = sc.nextInt();
+
+                    // Solo dos intentos
+                    while (respuesta != 2 && intentos < 1) {
+                        System.out.println("Fallaste, sólo te queda 1 oportunidad");
+                        intentos++;
+                        respuesta = sc.nextInt();
+                    }
+
+                    if (respuesta == 2) {
+                        System.out.println("¡Acertaste!");
+                        superaPrueba = true;
+                    } else
+                        System.out.println("No eres digno de continuar.");
+                    break;
+
+                // Preuba 3: Piedra, Papel y Tijeras
+
+                case 3:
+                    int derrotas = 0;
+                    int victorias = 0;
+
+                    System.out.println("=== PIEDRA, PAPEL O TIJERA ===");
+
+                    // Se repite hasta que alguien gane 3 rondas
+                    while (victorias < 3 && derrotas < 3) {
+
+                        System.out.println("\n1. Piedra\n2. Papel\n3. Tijera");
+                        int jugador = 0;
+
+                        // Validar entrada
+                        while (jugador < 1 || jugador > 3)
+                            jugador = sc.nextInt();
+
+                        int maquina = random.nextInt(3) + 1;
+
+                        String[] nombres = { "", "Piedra", "Papel", "Tijera" };
+                        System.out.println("La máquina eligió: " + nombres[maquina]);
+
+                        if (jugador == maquina) {
+                            System.out.println("¡Empate!");
+                        } else if ((jugador == 1 && maquina == 3) ||
+                                   (jugador == 2 && maquina == 1) ||
+                                   (jugador == 3 && maquina == 2)) {
+
+                            victorias++;
+                            System.out.println("¡Ganaste la ronda! Victorias: " + victorias + "/3");
+
+                        } else {
+                            derrotas++;
+                            System.out.println("Perdiste la ronda... Derrotas: " + derrotas + "/3");
+                        }
+                    }
+
+                    // Resultado final
+                    if (victorias == 3) {
+                        System.out.println("¡Ganaste el juego! Has superado la prueba.");
+                        superaPrueba = true;
+                    } else {
+                        System.out.println("Has perdido 3 veces. No superaste la prueba...");
+                        superaPrueba = false;
+                    }
+                    break;
+
+                // Preuba 4: Acertijo
+    
+                case 4:
+                    System.out.println("Resuelve el acertijo:");
+                    System.out.println("Dos madres y dos hijas comieron 3 huevos...");
+                    System.out.println("1. Cortaron los huevos");
+                    System.out.println("2. Las hijas comieron medio");
+                    System.out.println("3. Era abuela, madre e hija");
+                    System.out.println("4. Una se atragantó");
+
+                    intentos = 0;
+                    respuesta = sc.nextInt();
+
+                    while (respuesta != 3 && intentos < 1) {
+                        System.out.println("Fallaste, última oportunidad:");
+                        intentos++;
+                        respuesta = sc.nextInt();
+                    }
+
+                    if (respuesta == 3) {
+                        System.out.println("¡Acertaste!");
+                        superaPrueba = true;
+                    } else {
+                        System.out.println("Gastaste todas las balas.");
+                    }
+                    break;
+
+                default:
+                    System.out.println("Elige un camino válido");
+                    continue;
+            }
+
+            // Si no superó la prueba, volver al menú de caminos
+            if (!superaPrueba)
+                continue;
+
+            // Combate contra enemigo
+
+            System.out.println("\nHa aparecido un enemigo.");
+
+            int eleccionPersonaje = personajes - 1; // Convertir personaje (1-3) a índice (0-2)
+            int enemigo = random.nextInt(5);
+
+            System.out.println("\nTe has topado con " + nombresEnemigos[enemigo] + ". ¡Prepárate!");
+
+            // Reiniciar vidas al empezar combate nuevo
+            vidaEnemigo = 100;
+            vidaJugador = 100;
+
+
+            // Bucle del combate
+
+            while (vidaJugador > 0 && vidaEnemigo > 0) {
+
+                jugadorDefiende = false;
+                int accion = -1;
+                boolean accionValida = false;
+
+                System.out.println("\n----- Tu Turno -----");
+                System.out.println("Vida jugador: " + vidaJugador + " | Vida enemigo: " + vidaEnemigo);
+
+                // Menú del jugador
+                System.out.println("1. " + nombresAtaques[eleccionPersonaje][0] + " (" + usosAtaque1Personaje + "/3)");
+                System.out.println("2. " + nombresAtaques[eleccionPersonaje][1] + " (" + usosAtaque2Personaje + "/3)");
+                System.out.println("3. " + nombresDefensa[eleccionPersonaje] + " (" + usosDefensaPersonaje + "/3)");
+                System.out.println("4. " + nombresObjetos[eleccionPersonaje][0]);
+                System.out.println("5. " + nombresObjetos[eleccionPersonaje][1]);
+                System.out.println("6. " + nombresObjetos[eleccionPersonaje][2]);
+
+                // Validación de elección de jugador
+                while (!accionValida) {
+                    if (sc.hasNextInt()) {
+                        int valor = sc.nextInt();
+                        if (valor >= 1 && valor <= 6) {
+                            accion = valor;
+                            accionValida = true;
+                        } else {
+                            System.out.println("Opción inválida.");
+                        }
+                    } else {
+                        System.out.println("Entrada inválida.");
+                        sc.next();
+                    }
+                }
+
+                // Acciones del jugador
+
+                switch (accion) {
+
+                    case 1:
+                        if (usosAtaque1Personaje > 0) {
+                            int daño = ataque1Personaje[eleccionPersonaje];
+                            if (enemigoDefiende)
+                                daño /= 2;
+                            vidaEnemigo -= daño;
+                            usosAtaque1Personaje--;
+                            System.out.println(
+                                    "Usas " + nombresAtaques[eleccionPersonaje][0] + " y haces " + daño + " de daño!");
+                        }
+                        break;
+
+                    case 2:
+                        if (usosAtaque2Personaje > 0) {
+                            int daño = ataque2Personaje[eleccionPersonaje];
+                            if (enemigoDefiende)
+                                daño /= 2;
+                            vidaEnemigo -= daño;
+                            usosAtaque2Personaje--;
+                            System.out.println(
+                                    "Usas " + nombresAtaques[eleccionPersonaje][1] + " y haces " + daño + " de daño!");
+                        }
+                        break;
+
+                    case 3:
+                        if (usosDefensaPersonaje > 0) {
+                            jugadorDefiende = true;
+                            usosDefensaPersonaje--;
+                            System.out.println("Te defiendes usando " + nombresDefensa[eleccionPersonaje]);
+                        }
+                        break;
+
+                    case 4:
+                        ataque1Personaje[eleccionPersonaje] += obj1Personaje[eleccionPersonaje];
+                        ataque2Personaje[eleccionPersonaje] += obj1Personaje[eleccionPersonaje];
+                        vidaEnemigo -= 5;
+                        System.out.println("Usas " + nombresObjetos[eleccionPersonaje][0] + " y aumentas tus ataques.");
+                        break;
+
+                    case 5:
+                        vidaJugador += obj2Personaje[eleccionPersonaje];
+                        System.out.println("Recuperas " + obj2Personaje[eleccionPersonaje] + " de vida.");
+                        break;
+
+                    case 6:
+                        usosAtaque1Personaje = 3;
+                        usosAtaque2Personaje = 3;
+                        usosDefensaPersonaje = 3;
+                        System.out.println("Recuperas todos tus usos.");
+                        break;
+                }
+
+                // Turno del enemigo
+           
+                enemigoDefiende = false;
+                int accionEnemigo = random.nextInt(6) + 1;
+
+                System.out.println("\n----- Turno de " + nombresEnemigos[enemigo] + " -----");
+
+                switch (accionEnemigo) {
+
+                    case 1:
+                        if (usosAtaque1Enemigo > 0) {
+                            int daño = ataque1Enemigo[enemigo];
+                            if (jugadorDefiende)
+                                daño /= 2;
+                            vidaJugador -= daño;
+                            usosAtaque1Enemigo--;
+                            System.out.println(nombresEnemigos[enemigo] + " usa " +
+                                    nombresAtaquesEn[enemigo][0] +
+                                    " y te hace " + daño + " de daño!");
+                        }
+                        break;
+
+                    case 2:
+                        if (usosAtaque2Enemigo > 0) {
+                            int daño = ataque2Enemigo[enemigo];
+                            if (jugadorDefiende)
+                                daño /= 2;
+                            vidaJugador -= daño;
+                            usosAtaque2Enemigo--;
+                            System.out.println(nombresEnemigos[enemigo] + " usa " +
+                                    nombresAtaquesEn[enemigo][1] +
+                                    " y te hace " + daño + " de daño!");
+                        }
+                        break;
+
+                    case 3:
+                        if (usosDefensaEnemigo > 0) {
+                            enemigoDefiende = true;
+                            usosDefensaEnemigo--;
+                            System.out.println(nombresEnemigos[enemigo] +
+                                    " se defiende con " + nombresDefensaEn[enemigo]);
+                        }
+                        break;
+
+                    case 4:
+                        ataque1Enemigo[enemigo] += obj1Enemigo[enemigo];
+                        ataque2Enemigo[enemigo] += obj1Enemigo[enemigo];
+                        vidaJugador -= 5;
+                        System.out.println(nombresEnemigos[enemigo] + " usa " +
+                                nombresObjetosEn[enemigo][0] + " y aumenta poder.");
+                        break;
+
+                    case 5:
+                        vidaEnemigo += obj2Enemigo[enemigo];
+                        System.out.println(nombresEnemigos[enemigo] + " recupera vida.");
+                        break;
+
+                    case 6:
+                        usosAtaque1Enemigo = 3;
+                        usosAtaque2Enemigo = 3;
+                        usosDefensaEnemigo = 3;
+                        System.out.println(nombresEnemigos[enemigo] + " recupera todos sus usos.");
+                        break;
+                }
+            }
+
+            // Fin del combate
+            if (vidaJugador <= 0) {
+                System.out.println("Has perdido...");
+                juegoActivo = false; // Termina el juego
+            } else {
+                System.out.println("¡Has ganado!");
+            }
+        }
+
+    }
+}
